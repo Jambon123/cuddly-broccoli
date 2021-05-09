@@ -21,14 +21,17 @@ class mathscog(commands.Cog):
         self.bot = bot
 
     @commands.command(name='fib', aliases=['fibonacci'])
-    async def fib(self, ctx, *, args):
+    async def fib(self, ctx, arg1, arg2, arg3):
         try:
-            FibArgs = [(args)]
-            for n in FibArgs:
+            FibArgs = []
+            FibArgs.append(int(arg1))
+            FibArgs.append(int(arg2))
+            for n in int(arg3):
                 n1 = n - 1
                 n2 = n - 2
                 x = n1 + n2
-            await ctx.send (x)
+                await ctx.send (x)
+            FibArgs.clear()
         except: 
             await ctx.send ("Error in command")
 
