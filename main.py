@@ -9,6 +9,7 @@ import os, sys #System Imports
 from dotenv import load_dotenv
 import discord, discord.utils #Discord Imports
 from discord.ext import tasks, commands
+import math
 import nationstates #Nationstates Imports
 from nationstates import Shard
 import traceback #Error Handling
@@ -19,7 +20,7 @@ import re #Misc Imports
 
 #Config 
 bot = commands.Bot(command_prefix='=') #Discord Bot Prefix
-cogs = ["cogs.owneronlycog", "cogs.recruitmentcog", "cogs.nsapicog", "cogs.misccog"]
+cogs = ["cogs.owneronlycog", "cogs.recruitmentcog", "cogs.nsapicog", "cogs.misccog", "cogs.math"]
 
 #Loading
 load_dotenv()

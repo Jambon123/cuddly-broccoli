@@ -1,14 +1,13 @@
 #Accreditation (Do not Remove)
 
 #Original Creator of Software Jambon(https://github.com/Jambon123)
-#For Help on the Original Software droplt(https://github.com/drop-lt)
-#For Help on the Original Software MrTurtle(https://github.com/Mr-Turtle)
 
 #Imports
 import os, sys #System Imports
 from dotenv import load_dotenv
 import discord, discord.utils #Discord Imports
 from discord.ext import tasks, commands
+import math
 import nationstates #Nationstates Imports
 from nationstates import Shard
 import traceback #Error Handling
