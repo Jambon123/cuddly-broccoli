@@ -16,7 +16,7 @@ import asyncio #Async Imports
 import httpx #Web-Connection Imports
 import re #Misc Imports
 
-class mathcog(commands.Cog):
+class mathscog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -28,5 +28,9 @@ class mathcog(commands.Cog):
                 n1 = n - 1
                 n2 = n - 2
                 x = n1 + n2
-            ctx.send (x)
-        except: ctx.send ("Error")
+            await ctx.send (x)
+        except: 
+            await ctx.send ("Error in command")
+
+def setup(bot):
+    bot.add_cog(mathscog(bot))

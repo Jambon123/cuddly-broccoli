@@ -123,28 +123,31 @@ class recruitmentcog(commands.Cog):
     async def recruit(self, ctx, arg):
         global nationlogger
         #Check Value
-        if int(arg) == int("0"):
-            response =  ("Error, 0 invalid")
-        elif int(arg) >= int("9"):
-            response = ("Error, 9 or higher too large")
-        else:
-            recruitno = arg
-            print (recruitno)
+        try: 
+            if int(arg) == int("0"):
+                response =  ("Error, 0 invalid")
+            elif int(arg) >= int("9"):
+                response = ("Error, 9 or higher too large")
+            else:
+                recruitno = arg
+                print (recruitno)
 
-        #Get nation list equal to recruitno    
-        rlist = get_youngest(nationlogger.nations, int(recruitno))
+            #Get nation list equal to recruitno    
+            rlist = get_youngest(nationlogger.nations, int(recruitno))
 
-        #Combine Strings, Blacklist
-        stringList = ' '.join([str("nation: " + (item)) for item in rlist.copy() ])
-        for item in rlist.copy():
-            nationlogger.blacklist.append(item)
-            nationlogger.nations.pop(item)
+            #Combine Strings, Blacklist
+            stringList = ' '.join([str("nation: " + (item)) for item in rlist.copy() ])
+            for item in rlist.copy():
+                nationlogger.blacklist.append(item)
+                nationlogger.nations.pop(item)
 
 
-        print(stringList)
+            print(stringList)
 
-        response = str(stringList)
-        await ctx.send(f'{str(response)}')
+            response = str(stringList)
+            await ctx.send(f'{str(response)}')
+        except: 
+            await ctx.send ("Error in command")
 
 
 def setup(bot):

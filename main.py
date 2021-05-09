@@ -20,7 +20,7 @@ import re #Misc Imports
 
 #Config 
 bot = commands.Bot(command_prefix='=') #Discord Bot Prefix
-cogs = ["cogs.owneronlycog", "cogs.recruitmentcog", "cogs.nsapicog", "cogs.misccog", "cogs.math"]
+cogs = ["cogs.owneronlycog", "cogs.recruitmentcog", "cogs.nsapicog", "cogs.misccog", "cogs.mathscog"]
 
 #Loading
 load_dotenv()

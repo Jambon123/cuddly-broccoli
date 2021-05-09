@@ -31,19 +31,24 @@ class misccog(commands.Cog):
 
     @commands.command(name='echo', aliases=['send'])
     async def anonsend(self, ctx, *, args):
+        try: 
+            response = str(args)
 
-        response = str(args)
+            for item in badwords:
+                response = replace_all(item, "[REDACTED]", response)
 
-        for item in badwords:
-            response = replace_all(item, "[REDACTED]", response)
-
-        print("Printing... '" + (args) + "' Said by " + str(ctx.author))
-        await ctx.send(str(response))
+            print("Printing... '" + (args) + "' Said by " + str(ctx.author))
+            await ctx.send(str(response))
+        except:
+            await ("Error in command")
 
     @commands.command(name='joined')
     async def joined(self, ctx, member: discord.Member):
     #Finds and sends age
-        await ctx.send(f'{member.name} joined in {member.joined_at}')
+        try: 
+            await ctx.send(f'{member.name} joined in {member.joined_at}')
+        except:
+            await ("Error in command")
 
 def setup(bot):
     bot.add_cog(misccog(bot))

@@ -28,10 +28,13 @@ class nsapicog(commands.Cog):
 
     @commands.command(name='worldnations')
     async def worldnations(self, ctx):
-        nationnum = world.get_shards('numnations')
-        response = ((nationnum.numnations) + (" Nations are in the world"))
-        print("worldnations used")
-        await ctx.send(f'{response}')
+        try:
+            nationnum = world.get_shards('numnations')
+            response = ((nationnum.numnations) + (" Nations are in the world"))
+            print("worldnations used")
+            await ctx.send(f'{response}')
+        except:
+            await ctx.send ("Error in command")
 
 
 def setup(bot):
