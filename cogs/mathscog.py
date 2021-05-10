@@ -26,7 +26,7 @@ class mathscog(commands.Cog):
             FibArgs = []
             FibArgs.append(int(arg1))
             FibArgs.append(int(arg2))
-            for n in int(arg3):
+            for n in (arg3):
                 n1 = n - 1
                 n2 = n - 2
                 x = n1 + n2
