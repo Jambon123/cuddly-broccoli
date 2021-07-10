@@ -17,6 +17,7 @@ import json, aiofiles #File Imports
 import asyncio #Async Imports
 import httpx #Web-Connection Imports
 import re #Misc Imports
+from datetime import datetime
 
 clientkey = os.getenv('CLIENTKEY')
 tgid = os.getenv('TGID')
@@ -53,7 +54,7 @@ class NationLogger:
         self.blacklist = []
 
     async def RecordNations(self):
-        print("Grabbing Nations")
+        print("Grabbing Nations at " +  str(datetime.now()))
         content = dict(world.get_shards('newnations'))
         content["newnations"] = content["newnations"].split(",")
         
@@ -82,15 +83,15 @@ class BackgroundCounter(commands.Cog):
 
     @tasks.loop(seconds=60.0)
     async def printer(self):
-        print("Tick")
+        print("1 Minute Tick")
         await self.nationLogger.RecordNations()
 
 async def TGSend():
-    print ("Tack")
     recruitpick = get_youngest(nationlogger.nations, int("1"))
     for item in recruitpick.copy():
         nationlogger.blacklist.append(item)
         nationlogger.nations.pop(item)
+        print ("Sending Telegram at " +  str(datetime.now()) + " to " + str(recruitpick))
 
     async with httpx.AsyncClient() as client:
         payload = {'client': (clientkey), 'tgid': (tgid), 'key': (secretkey), 'to': (recruitpick), } 
@@ -106,8 +107,8 @@ class AutoTG(commands.Cog):
 
     @tasks.loop(seconds=180.0)
     async def printer(self):
-        await asyncio.sleep(1)
-        print("Tock")
+        await asyncio.sleep(3)
+        print("3 Minute Tick")
         await TGSend()
 
 AutoTG(TGSend, bot)
@@ -146,9 +147,9 @@ class recruitmentcog(commands.Cog):
 
             response = str(stringList)
             await ctx.send(f'{str(response)}')
-        except: 
-            await ctx.send ("Error in command")
-
+        except Exception as e:
+            await ctx.send ("Error in command " + str(e))
+ 
 
 def setup(bot):
     bot.add_cog(recruitmentcog(bot))

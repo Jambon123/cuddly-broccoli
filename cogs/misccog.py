@@ -15,8 +15,9 @@ import json, aiofiles #File Imports
 import asyncio #Async Imports
 import httpx #Web-Connection Imports
 import re #Misc Imports
+from datetime import datetime
 
-badwords = ["sdfg,sdrfyuio,lkmjnegwefgthk/.jmnhgerwdfgt.;,mjhdestfyjh,kyukyuyhgjt656"]
+badwords = ["sdfg,sdrfyuio,lkmjnegwefgthk/.jmnhgerwdfgt.;,mjhdestfyjh,kyukyuyhgjt656", "sus", "cringe", "cring", "imposter", "jesus", "sussy"]
 
 def replace_all(pattern, repl, string) -> str:
     occurences = re.findall(pattern, string, re.IGNORECASE)
@@ -39,16 +40,16 @@ class misccog(commands.Cog):
 
             print("Printing... '" + (args) + "' Said by " + str(ctx.author))
             await ctx.send(str(response))
-        except:
-            await ("Error in command")
+        except Exception as e:
+            await ctx.send ("Error in command " + str(e))
 
     @commands.command(name='joined')
     async def joined(self, ctx, member: discord.Member):
     #Finds and sends age
         try: 
             await ctx.send(f'{member.name} joined in {member.joined_at}')
-        except:
-            await ("Error in command")
+        except Exception as e:
+            await ctx.send ("Error in command " + str(e))
 
 def setup(bot):
     bot.add_cog(misccog(bot))

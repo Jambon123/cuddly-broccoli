@@ -15,6 +15,7 @@ import json, aiofiles #File Imports
 import asyncio #Async Imports
 import httpx #Web-Connection Imports
 import re #Misc Imports
+from datetime import datetime
 
 class owneronlycog(commands.Cog):
     def __init__(self, bot):
@@ -29,8 +30,8 @@ class owneronlycog(commands.Cog):
             await self.bot.change_presence(status=discord.Status.online, activity=game)
             await ctx.send("Status Changed to " + str(game))
             print("Status Changed to " + str(game))
-        except: 
-            await ctx.send ("Error in command") 
+        except Exception as e:
+            await ctx.send ("Error in command " + str(e))
 
 def setup(bot):
     bot.add_cog(owneronlycog(bot))

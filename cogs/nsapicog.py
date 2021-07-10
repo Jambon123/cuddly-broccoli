@@ -17,6 +17,7 @@ import json, aiofiles #File Imports
 import asyncio #Async Imports
 import httpx #Web-Connection Imports
 import re #Misc Imports
+from datetime import datetime
 
 USERAGENT = os.getenv('API')
 api = nationstates.Nationstates(USERAGENT)
@@ -33,8 +34,8 @@ class nsapicog(commands.Cog):
             response = ((nationnum.numnations) + (" Nations are in the world"))
             print("worldnations used")
             await ctx.send(f'{response}')
-        except:
-            await ctx.send ("Error in command")
+        except Exception as e:
+            await ctx.send ("Error in command " + str(e))
 
 
 def setup(bot):

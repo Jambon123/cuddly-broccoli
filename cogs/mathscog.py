@@ -15,13 +15,14 @@ import json, aiofiles #File Imports
 import asyncio #Async Imports
 import httpx #Web-Connection Imports
 import re #Misc Imports
+from datetime import datetime
 
 class mathscog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
     @commands.command(name='fib', aliases=['fibonacci'])
-    async def fib(self, ctx, arg1, arg2, arg3):
+    async def fib(self, ctx, *, args):
         try:
             FibArgs = []
             FibArgs.append(int(arg1))
@@ -32,8 +33,8 @@ class mathscog(commands.Cog):
                 x = n1 + n2
                 await ctx.send (x)
             FibArgs.clear()
-        except: 
-            await ctx.send ("Error in command")
+        except Exception as e:
+            await ctx.send ("Error in command " + str(e))
 
 def setup(bot):
     bot.add_cog(mathscog(bot))
