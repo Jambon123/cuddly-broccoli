@@ -7,13 +7,7 @@ import os, sys #System Imports
 from dotenv import load_dotenv
 import discord, discord.utils #Discord Imports
 from discord.ext import tasks, commands
-import math
-import nationstates #Nationstates Imports
 from nationstates import Shard
-import traceback #Error Handling
-import json, aiofiles #File Imports
-import asyncio #Async Imports
-import httpx #Web-Connection Imports
 import re #Misc Imports
 from datetime import datetime
 
@@ -47,7 +41,7 @@ class misccog(commands.Cog):
     async def joined(self, ctx, member: discord.Member):
     #Finds and sends age
         try: 
-            await ctx.send(f'{member.name} joined in {member.joined_at}')
+            await ctx.send(f'{member.name} joined at {member.joined_at}')
         except Exception as e:
             await ctx.send ("Error in command " + str(e))
 

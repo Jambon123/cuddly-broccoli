@@ -19,22 +19,14 @@ import httpx #Web-Connection Imports
 import re #Misc Imports
 from datetime import datetime
 
-#Config 
+#Bot Details
 bot = commands.Bot(command_prefix='=') #Discord Bot Prefix
-cogs = ["cogs.owneronlycog", "cogs.recruitmentcog", "cogs.nsapicog", "cogs.misccog", "cogs.mathscog"]
+cogs = ["cogs.owneronlycog", "cogs.recruitmentcog", "cogs.nsapicog", "cogs.misccog", "cogs.mathscog", "cogs.datacog"]
 
-#Loading
 load_dotenv()
-USERAGENT = os.getenv('API')
-TOKEN = os.getenv('DISCORD_TOKEN')
-clientkey = os.getenv('CLIENTKEY')
-tgid = os.getenv('TGID')
-secretkey = os.getenv('SECRETKEY')
-api = nationstates.Nationstates(USERAGENT) #NSAPI UserAgent
 intents = discord.Intents.default()
 intents.members = True
 client = discord.Client()
-world = api.world()
 
 #Startup
 @bot.event
@@ -63,48 +55,6 @@ async def on_ready():
 async def example(ctx):
     response = ("This is an example command for adaptation or removal")
     await ctx.send(f'{response}')
-
-@bot.command(name='setselfdata')
-async def setselfdata(ctx, *, args):
-    try:
-        user = str(ctx.author.id)
-        server = str(ctx.message.guild.id)
-        data = json.loads(str(args))
-
-        async with aiofiles.open('datalist.json', mode='r') as f:
-            AllDataDictStr = await f.read()
-
-        AllDataDict = json.loads(str(AllDataDictStr))
-        
-        if server not in AllDataDict.keys():
-            AllDataDict[server] = {}
-            
-        if user not in AllDataDict[server].keys():
-            AllDataDict[server][user] = []
-            
-        if data not in AllDataDict[server][user]:
-            AllDataDict[server][user].append(data)
-            
-        #AllDataDict[server][user].append(data)
-
-        async with aiofiles.open('datalist.json', mode="w") as f:
-            await f.write(json.dumps(AllDataDict))
-
-        await ctx.send(("Added ") + str(data) + (" to ") + str(user)) 
-
-    except Exception as e:
-        await ctx.send ("Error in command " + str(e))
-
-@bot.command(name='readselfdata')
-async def readselfdata(ctx):
-    try:
-        user = ctx.author.id
-        response = str("Data Read: " ("data"+str(user)))
-        await ctx.send("data"+str(user))
-        print ("data"+str(user))
-    except Exception as e:
-        await ctx.send ("Error in command " + str(e))
-
 #Run Bot
 
-bot.run(TOKEN)
+bot.run(os.getenv('DISCORD_TOKEN'))

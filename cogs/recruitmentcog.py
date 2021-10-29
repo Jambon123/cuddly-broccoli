@@ -9,14 +9,11 @@ import os, sys #System Imports
 from dotenv import load_dotenv
 import discord, discord.utils #Discord Imports
 from discord.ext import tasks, commands
-import math
 import nationstates #Nationstates Imports
 from nationstates import Shard
-import traceback #Error Handling
 import json, aiofiles #File Imports
 import asyncio #Async Imports
 import httpx #Web-Connection Imports
-import re #Misc Imports
 from datetime import datetime
 
 clientkey = os.getenv('CLIENTKEY')
@@ -97,7 +94,7 @@ async def TGSend():
         payload = {'client': (clientkey), 'tgid': (tgid), 'key': (secretkey), 'to': (recruitpick), } 
         await client.get(f'https://www.nationstates.net/cgi-bin/api.cgi?a=sendTG', params = payload)
 
-class AutoTG(commands.Cog):
+class autotg(commands.Cog):
     def __init__(self, bot, TGSend):
         self.bot = bot
         self.printer.start()
@@ -111,7 +108,7 @@ class AutoTG(commands.Cog):
         print("3 Minute Tick")
         await TGSend()
 
-AutoTG(TGSend, bot)
+autotg(TGSend, bot)
 nationlogger = NationLogger()
 BackgroundCounter(bot, nationlogger)
 
